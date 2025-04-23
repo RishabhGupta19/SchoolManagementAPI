@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>List Schools by Proximity</title>
+</head>
+<body>
+  <h2>Find Schools Near You</h2>
+  <form id="locationForm">
+    <label>Latitude: <input type="number" step="any" name="latitude" required /></label><br/><br/>
+    <label>Longitude: <input type="number" step="any" name="longitude" required /></label><br/><br/>
+    <button type="submit">Get Schools</button>
+  </form>
+
+  <h3>Nearby Schools:</h3>
+  <ul id="schoolList"></ul>
+
+  <script>
+    document.getElementById('locationForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const lat = form.latitude.value;
+      const lon = form.longitude.value;
+
+      try {
+        const res = await fetch(`/api/listSchools?latitude=${lat}&longitude=${lon}`);
+        const schools = await res.json();
+
+        const list = document.getElementById('schoolList');
+        list.innerHTML = '';
+
+        if (schools.length === 0) {
+          list.innerHTML = '<li>No schools found.</li>';
+        } else {
+          schools.forEach((school) => {
+            const li = document.createElement('li');
+            li.textContent = `${school.name} (${school.address}) - ${school.distance.toFixed(2)} km away`;
+            list.appendChild(li);
+          });
+        }
+      } catch (err) {
+        alert('Error fetching schools.');
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

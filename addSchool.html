@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h3>Add School</h3>
+    <form id="schoolForm">
+      <input name="name" placeholder="Name" required /><br/>
+      <input name="address" placeholder="Address" required /><br/>
+      <input name="latitude" placeholder="Latitude" type="number" step="any" required /><br/>
+      <input name="longitude" placeholder="Longitude" type="number" step="any" required /><br/>
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      document.getElementById('schoolForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const data = {
+          name: form.name.value,
+          address: form.address.value,
+          latitude: form.latitude.value,
+          longitude: form.longitude.value
+        };
+        
+        const res = await fetch('http://localhost:3000/addSchool', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        
+        const result = await res.json();
+        alert(JSON.stringify(result));
+      };
+    </script>
+  </body>
+</html>
