@@ -13,7 +13,9 @@ app.get('/addSchool', (req, res) => {
 app.get('/listSchools', (req, res) => {
     res.sendFile(path.join(__dirname,  'listSchools.html'));
   });
-  
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname,  'home.html'));
+  });
 
 app.use('/', schoolRoutes); // Keep the POST /addSchool logic here
 
