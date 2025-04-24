@@ -12,6 +12,7 @@ app.use(cors({
   methods: ['GET', 'POST'],
   credentials: true,
 }));
+app.use(express.urlencoded({extended: false}));
 
 // Middleware
 app.use(express.json());
