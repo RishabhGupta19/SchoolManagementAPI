@@ -21,7 +21,7 @@
           longitude: form.longitude.value
         };
         
-        const res = await fetch('http://localhost:3000/addSchool', {
+        const res = await fetch('https://schoolmanagementapi-u0eg.onrender.com/addSchooll', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
